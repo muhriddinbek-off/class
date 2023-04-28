@@ -9,81 +9,115 @@ class value extends StatefulWidget {
 }
 
 class _valueState extends State<value> {
-  int ans = 0;
-  bool x1 = false;
-  bool x2 = false;
-  bool x3 = false;
-  void func1 (v){
-    int a1 = 75000;
+  bool check1 = false;
+  bool check2 = false;
+  bool check3 = false;
+  int answer = 0;
+  String ans = '';
+  void func (value) {
     setState(() {
-      x1 = !x1;
-      if (x1){
-        ans += a1;
+      ans = value;
+      if (ans == 'Small'){
+      answer = 75000;
+    } if (ans == 'Medium'){
+      answer = 80000;
+    }
+    if (ans == 'Large'){
+      answer = 95000;
+    }
+    print(answer);
+    });
+  } 
+
+  void checkfunc1 (v){
+    setState(() {
+      check1 = !check1;
+      if (check1){
+        answer += 5000;
+      } else {
+        answer -= 5000;
       }
-      else{
-        ans -= a1;
-      }
-      print(x1);
+      print(check1);
     });
   }
-  void func2 (v){
-    int a2 = 60000;
+  void checkfunc2 (v){
     setState(() {
-      x2 = !x2;
-      if (x2){
-        ans += a2;
+      check2 = !check2;
+      if (check2){
+        answer += 10000;
+      } else {
+        answer -= 10000;
       }
-      else{
-        ans -= a2;
-      }
-      print(x2);
+      print(check2);
     });
   }
-  void func3 (v){
-    int a3 = 97000;
+  void checkfunc3 (v){
     setState(() {
-      x3 = !x3;
-      if (x3){
-        ans += a3;
+      check3 = !check3;
+      if (check3){
+        answer += 15000;
+      } else {
+        answer -= 15000;
       }
-      else{
-        ans -= a3;
-      }
-      print(x3);
+      print(check3);
     });
   }
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+      margin: const EdgeInsets.all(10),
+      child: Column(
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+           Padding(
+             padding: const EdgeInsets.all(8.0),
+             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Row(
+                  children: [
+                    Radio(value: 'Small', groupValue: ans, onChanged: func),
+                    const Text('Small'),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Radio(value: 'Medium', groupValue: ans, onChanged: func),
+                    const Text('Medium'),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Radio(value: 'Large', groupValue: ans, onChanged: func),
+                    const Text('Large'),
+                  ],
+                ),
+              ],
+             ),
+           ),
+           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Row(
                 children: [
-                  Checkbox(value: x1, onChanged: func1),
-                  const  Text('Extra Cheese', style: TextStyle(fontSize: 25)),
+                  Checkbox(value: check1, onChanged: checkfunc1),
+                  const Text('Extra Cheese'),
                 ],
               ),
-               Row(
+              Row(
                 children: [
-                  Checkbox(value: x2, onChanged: func2),
-                  const  Text('Onions', style: TextStyle(fontSize: 25)),
+                  Checkbox(value: check2, onChanged: checkfunc2),
+                  const Text('Onions'),
                 ],
               ),
-               Row(
+              Row(
                 children: [
-                  Checkbox(value: x3, onChanged: func3),
-                  const  Text('Chisken', style: TextStyle(fontSize: 25)),
+                  Checkbox(value: check3, onChanged: checkfunc3),
+                  const Text('Chisken'),
                 ],
               ),
-              Container(
-                margin: const EdgeInsets.only(top: 170),
-                child: Text('Total sum: $ans', style:const TextStyle(fontSize: 25))),
             ],
-          ),
+           ),
+           Container(margin: const EdgeInsets.only(top: 200), child: Center(child: Text('Total sum: $answer', style: const TextStyle(fontSize: 20)))),
         ],
       ),
     );
@@ -95,14 +129,14 @@ void main() {
     debugShowCheckedModeBanner: false,
     home: Scaffold(  
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Center(
             child: Container(
+              margin: const EdgeInsets.only(top: 40, bottom: 50),
               child: Image.asset('images/2.jpg', height: 250, width: 250, fit: BoxFit.fill),
             ),
           ),
-          value(),
+          const value(),
         ],
       ),
     ),
